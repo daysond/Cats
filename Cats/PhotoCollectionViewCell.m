@@ -14,30 +14,32 @@
     
     _photo = photo;
     self.photoTitle.text = photo.photoTitle;
-    NSLog(@"titile: %@",photo.photoTitle);
-    [self downloadPhotoWithURL:photo.url];
+    [self downloadPhotoWithInfo:photo];
     
 }
 
--(void) downloadPhotoWithURL:(NSURL*) url {
+-(void) downloadPhotoWithInfo:(Photo*)photo {
     
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error) {
-            NSLog(@"Encountered error: %@",error);
-            return ;
-        }
-        
-        UIImage *photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.photoImageView.image = photo;
+    if (photo.image == nil) {
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+        NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:photo.url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            if (error) {
+                NSLog(@"Encountered error: %@",error);
+                return ;
+            }
+            
+            UIImage *photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+            self.photo.image = photo;
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.photoImageView.image = self.photo.image;
+            }];
         }];
-    }];
+        
+        [downloadTask resume];
+    }
     
-    [downloadTask resume];
 }
 
 @end

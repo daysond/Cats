@@ -31,6 +31,7 @@
 #pragma mark - Get photo raw data
 
 -(void)fetchPhotoData {
+    
     NSURL *url = [NSURL URLWithString:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&&nojsoncallback=1&api_key=392a5a896c2f782e5a74afb51275ebb2&tags=cat"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
