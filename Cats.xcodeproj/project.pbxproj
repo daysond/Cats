@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED12ED1B228DF4510005A1F0 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */; };
 		ED21C0FD228DE729000637F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C0FC228DE729000637F2 /* AppDelegate.m */; };
 		ED21C100228DE729000637F2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C0FF228DE729000637F2 /* ViewController.m */; };
 		ED21C103228DE729000637F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED21C101228DE729000637F2 /* Main.storyboard */; };
 		ED21C105228DE72A000637F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED21C104228DE72A000637F2 /* Assets.xcassets */; };
 		ED21C108228DE72A000637F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED21C106228DE72A000637F2 /* LaunchScreen.storyboard */; };
 		ED21C10B228DE72A000637F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C10A228DE72A000637F2 /* main.m */; };
+		ED21C113228DF2F7000637F2 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C112228DF2F7000637F2 /* Photo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED12ED19228DF4510005A1F0 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		ED21C0F8228DE729000637F2 /* Cats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED21C0FB228DE729000637F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ED21C0FC228DE729000637F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -26,6 +30,8 @@
 		ED21C107228DE72A000637F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED21C109228DE72A000637F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED21C10A228DE72A000637F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		ED21C111228DF2F7000637F2 /* Photo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		ED21C112228DF2F7000637F2 /* Photo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				ED21C0FC228DE729000637F2 /* AppDelegate.m */,
 				ED21C0FE228DE729000637F2 /* ViewController.h */,
 				ED21C0FF228DE729000637F2 /* ViewController.m */,
+				ED12ED19228DF4510005A1F0 /* PhotoCollectionViewCell.h */,
+				ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */,
+				ED21C111228DF2F7000637F2 /* Photo.h */,
+				ED21C112228DF2F7000637F2 /* Photo.m */,
 				ED21C101228DE729000637F2 /* Main.storyboard */,
 				ED21C104228DE72A000637F2 /* Assets.xcassets */,
 				ED21C106228DE72A000637F2 /* LaunchScreen.storyboard */,
@@ -141,8 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED21C113228DF2F7000637F2 /* Photo.m in Sources */,
 				ED21C100228DE729000637F2 /* ViewController.m in Sources */,
 				ED21C10B228DE72A000637F2 /* main.m in Sources */,
+				ED12ED1B228DF4510005A1F0 /* PhotoCollectionViewCell.m in Sources */,
 				ED21C0FD228DE729000637F2 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
