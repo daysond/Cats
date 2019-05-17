@@ -19,6 +19,10 @@
         _photoID = photoID;
         _secret = secret;
         _photoTitle = photoTitle;
+        _realname = @"N/A";
+        _username = @"N/A";
+        _location = @"N/A";
+        _dateTaken = @"N/A";
         _url = [NSURL URLWithString:[NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/%@_%@.jpg",farm,server,photoID,secret]];
     }
     return self;

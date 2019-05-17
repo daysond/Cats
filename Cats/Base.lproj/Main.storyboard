@@ -79,9 +79,6 @@
                             <constraint firstItem="fEn-3C-UXx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bRA-09-kRW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="ufz-RC-Wff" appends="YES" id="UAe-DG-ke5"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="dHv-Gc-Riu">
                         <nil key="title"/>
@@ -89,10 +86,11 @@
                     <connections>
                         <outlet property="dateLabel" destination="fve-LY-Asc" id="cGF-qx-dhh"/>
                         <outlet property="locationLabel" destination="5Qo-dD-uiT" id="6Ja-5K-Nvp"/>
-                        <outlet property="photoCollectionView" destination="fEn-3C-UXx" id="QGh-yj-th2"/>
+                        <outlet property="photoCollectionView" destination="fEn-3C-UXx" id="dVn-pm-i1K"/>
                         <outlet property="popOver" destination="bqb-5i-Ofi" id="jZa-p8-4rP"/>
                         <outlet property="realnameLabel" destination="MSZ-7Y-hKb" id="04E-8U-lgM"/>
                         <outlet property="usernameLabel" destination="U6A-ug-hLc" id="nZB-J9-iOE"/>
+                        <outlet property="webButton" destination="ooo-XS-gVs" id="iFt-Kv-62v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -141,7 +139,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooo-XS-gVs" userLabel="View Post">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooo-XS-gVs" userLabel="View Post" customClass="WebButton">
                                     <rect key="frame" x="122.5" y="115" width="71" height="19"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                     <state key="normal" title="View Post">
@@ -166,11 +164,6 @@
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="9pR-KQ-tHD"/>
                 </view>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ufz-RC-Wff">
-                    <connections>
-                        <action selector="longPressRecog:" destination="BYZ-38-t0r" id="k00-gu-OKH"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
         </scene>
@@ -206,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q58-zw-cbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1813.0434782608697" y="128.57142857142856"/>
+            <point key="canvasLocation" x="1887" y="138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wGn-5h-vr3">
@@ -216,7 +209,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="C6J-EF-2sn">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

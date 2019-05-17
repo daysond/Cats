@@ -16,6 +16,7 @@
 		ED21C108228DE72A000637F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED21C106228DE72A000637F2 /* LaunchScreen.storyboard */; };
 		ED21C10B228DE72A000637F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C10A228DE72A000637F2 /* main.m */; };
 		ED21C113228DF2F7000637F2 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C112228DF2F7000637F2 /* Photo.m */; };
+		ED917C1F228F1B0600844020 /* WebButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED917C1E228F1B0600844020 /* WebButton.m */; };
 		EDDBF4CE228E464100BEB3C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDBF4CD228E464100BEB3C1 /* WebKit.framework */; };
 		EDDBF4D1228E475400BEB3C1 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDBF4D0228E475400BEB3C1 /* WebViewController.m */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,8 @@
 		ED21C10A228DE72A000637F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ED21C111228DF2F7000637F2 /* Photo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		ED21C112228DF2F7000637F2 /* Photo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		ED917C1D228F1B0600844020 /* WebButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebButton.h; sourceTree = "<group>"; };
+		ED917C1E228F1B0600844020 /* WebButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebButton.m; sourceTree = "<group>"; };
 		EDDBF4CD228E464100BEB3C1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		EDDBF4CF228E475400BEB3C1 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		EDDBF4D0228E475400BEB3C1 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -84,6 +87,8 @@
 				ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */,
 				ED21C111228DF2F7000637F2 /* Photo.h */,
 				ED21C112228DF2F7000637F2 /* Photo.m */,
+				ED917C1D228F1B0600844020 /* WebButton.h */,
+				ED917C1E228F1B0600844020 /* WebButton.m */,
 				ED21C101228DE729000637F2 /* Main.storyboard */,
 				EDDBF4CF228E475400BEB3C1 /* WebViewController.h */,
 				EDDBF4D0228E475400BEB3C1 /* WebViewController.m */,
@@ -173,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED917C1F228F1B0600844020 /* WebButton.m in Sources */,
 				ED12ED1E228E20620005A1F0 /* Webservice.m in Sources */,
 				EDDBF4D1228E475400BEB3C1 /* WebViewController.m in Sources */,
 				ED21C113228DF2F7000637F2 /* Photo.m in Sources */,

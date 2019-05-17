@@ -20,7 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *secret;
 @property (nonatomic) NSString* photoTitle;
 @property (nonatomic) UIImage* image;
-
+@property (nonatomic) NSString *link;
+@property (nonatomic) NSString *dateTaken;
+@property (nonatomic) NSString *realname;
+@property (nonatomic) NSString *username;
+@property (nonatomic) NSString *location;
 - (instancetype)initWithFarm: (NSString*)farm server: (NSString*) server photoID: (NSString*) photoID secret:(NSString*)secret photoTitle: (NSString*) photoTitle;
 
 @end

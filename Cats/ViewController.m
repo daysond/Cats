@@ -10,8 +10,9 @@
 #import "PhotoCollectionViewCell.h"
 #import "Webservice.h"
 #import "WebViewController.h"
+#import "WebButton.h"
 
-@interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic) NSMutableArray <Photo*> *photos;
 @property (nonatomic) UICollectionViewFlowLayout *flowLayout;
@@ -20,8 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *realnameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet WebButton *webButton;
 @property (nonatomic) Webservice *webservice;
-@property (nonatomic) NSString* link;
 @end
 
 @implementation ViewController
@@ -33,49 +34,57 @@
     self.webservice = [Webservice new];
     self.photos = [NSMutableArray new];
     [self setupLayout];
-    [self fetchPhoto];
-    
+    [self fetchPhotoWithTag:@"cat"];
     self.popOver.layer.cornerRadius = 15;
+    [self setupSearchBar];
     
 }
 
 
 #pragma mark - Get data
 
--(void)fetchPhoto {
-    
-    [self.webservice fetchDataWithMethod:@"flickr.photos.search" query:[[NSURLQueryItem alloc] initWithName:@"tags" value:@"cat"] completionHandler:^(NSDictionary * _Nonnull dataDict) {
-        
+-(void)fetchPhotoWithTag: (NSString*) tag {
+    [self.photos removeAllObjects];
+    [self.webservice fetchDataWithMethod:@"flickr.photos.search" query:[[NSURLQueryItem alloc] initWithName:@"tags" value:tag] completionHandler:^(NSDictionary * _Nonnull dataDict) {
+        NSLog(@"tag:%@",tag);
         NSArray* photoData = dataDict[@"photos"][@"photo"];
         
         for (NSDictionary* photoDataDict in photoData) {
+            
+            NSLog(@"inside fetch for loop");
             Photo* photo = [[Photo alloc]initWithFarm:photoDataDict[@"farm"] server:photoDataDict[@"server"]  photoID:photoDataDict[@"id"]  secret:photoDataDict[@"secret"] photoTitle: photoDataDict[@"title"]];
+            NSLog(@"photo is %@",photo);
             [self.photos addObject:photo];
         }
         [self.photoCollectionView reloadData];
+        [self getPhotoInfo];
     }];
+
 }
 
--(void)fetchPhotoInfoWithID: (NSString*) photoID {
+-(void)getPhotoInfo {
     
-    NSURLQueryItem *photoIDQuery = [[NSURLQueryItem alloc] initWithName:@"photo_id" value:photoID];
-    
-    [self.webservice fetchDataWithMethod:@"flickr.photos.getInfo" query:photoIDQuery completionHandler:^(NSDictionary * _Nonnull dataDict) {
+    for (Photo* photo in self.photos) {
         
-        NSDictionary* dateData = dataDict[@"photo"][@"dates"];
-        NSDictionary* ownerInfo = dataDict[@"photo"][@"owner"];
+        NSURLQueryItem *photoIDQuery = [[NSURLQueryItem alloc] initWithName:@"photo_id" value:photo.photoID];
         
-        self.dateLabel.text = [NSString stringWithFormat:@"Date taken: %@", dateData[@"taken"]];
-        self.usernameLabel.text = [NSString stringWithFormat:@"Username: %@",ownerInfo[@"username"]];
-        self.realnameLabel.text = [NSString stringWithFormat:@"Real name: %@", ownerInfo[@"realname"]];
-        self.locationLabel.text= [NSString stringWithFormat:@"Location: %@",ownerInfo[@"location"]];
-        self.link = dataDict[@"photo"][@"urls"][@"url"][0][@"_content"];
-        NSLog(@"link is %@",self.link);
-    }];
-    
+        [self.webservice fetchDataWithMethod:@"flickr.photos.getInfo" query:photoIDQuery completionHandler:^(NSDictionary * _Nonnull dataDict) {
+            
+            NSDictionary* dateData = dataDict[@"photo"][@"dates"];
+            NSDictionary* ownerInfo = dataDict[@"photo"][@"owner"];
+            NSLog(@"date taken:%@",dateData[@"taken"]);
+            photo.dateTaken = dateData[@"taken"];
+            photo.username = ownerInfo[@"username"];
+            photo.realname = ownerInfo[@"realname"];
+            photo.location = ownerInfo[@"location"];
+            photo.link = dataDict[@"photo"][@"urls"][@"url"][0][@"_content"];
+        }];
+    }
 }
 
-#pragma mark - Set up layout
+
+
+#pragma mark - Set up layout and View
 
 -(void)setupLayout {
     self.photoCollectionView.backgroundColor = [UIColor blackColor];
@@ -87,6 +96,24 @@
     CGSize itemSize = CGSizeMake(width, height);
     [self.flowLayout setItemSize:itemSize];
 }
+
+-(void)setupSearchBar {
+
+    UISearchController *searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+    [searchController.searchBar setDelegate:self];
+    self.navigationItem.searchController = searchController;
+    
+}
+
+
+#pragma  mark - Search bar delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
+    [self fetchPhotoWithTag:searchBar.text];
+    
+}
+
 
 #pragma mark - collection view
 
@@ -101,24 +128,36 @@
     return self.photos.count;
 }
 
-- (IBAction)longPressRecog:(UILongPressGestureRecognizer *)sender {
-
-    NSIndexPath *indexPath = [self.photoCollectionView indexPathForItemAtPoint:[sender locationInView:self.view]];
-    Photo *photo = self.photos[indexPath.item];
-    [self fetchPhotoInfoWithID:photo.photoID];
-    [self setupPopOver];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    PhotoCollectionViewCell *cell = (PhotoCollectionViewCell*)[self.photoCollectionView cellForItemAtIndexPath:indexPath];
+    [self setupPopOverWithPhotoInfo: cell.photo];
 }
 
+//- (IBAction)longPressRecog:(UILongPressGestureRecognizer *)sender {
+//
+//    CGPoint location = [sender locationInView:self.view];
+//    CGPoint newLocation = CGPointMake(location.x, location.y + [self.photoCollectionView contentOffset].y);
+//    NSIndexPath *indexPath = [self.photoCollectionView indexPathForItemAtPoint:newLocation];
+//    PhotoCollectionViewCell *cell = (PhotoCollectionViewCell*)[self.photoCollectionView cellForItemAtIndexPath:indexPath];
+//    [self setupPopOverWithPhotoInfo: cell.photo];
+//
+//}
 
-#pragma mark - helpers
 
--(void)setupPopOver {
-    
+#pragma mark - helpers and button actions
+
+-(void)setupPopOverWithPhotoInfo: (Photo*) photo {
+
     self.popOver.alpha = 0.8;
     CGFloat width = CGRectGetWidth(self.view.frame) - 20.0;
     CGFloat height = width * (3.0/4.0);
     [self.popOver setFrame:CGRectMake(0, 0,width,height)];
     self.popOver.center = self.view.center;
+    self.dateLabel.text = photo.dateTaken;
+    self.usernameLabel.text = photo.username;
+    self.realnameLabel.text = photo.realname;
+    self.locationLabel.text= photo.location;
+    self.webButton.url = photo.link;
     [self.view addSubview:self.popOver];
     
 }
@@ -127,17 +166,20 @@
     [self.popOver removeFromSuperview];
 }
 
-- (IBAction)viewPostButtonTapped:(UIButton *)sender {
-
+- (IBAction)viewPostButtonTapped:(WebButton *)sender {
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    WebButton *webButton = (WebButton*) sender;
     if ([segue.identifier isEqualToString:@"toWeb"]) {
         WebViewController *dvc = segue.destinationViewController;
-        dvc.urlStr = self.link;
+        dvc.urlStr = webButton.url;
         [self.popOver removeFromSuperview];
+        
     }
-
 }
+
+
 
 @end

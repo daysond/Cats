@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
-//  Cats
+//  test
 //
-//  Created by Dayson Dong on 2019-05-16.
+//  Created by Dayson Dong on 2019-05-17.
 //  Copyright © 2019 Dayson Dong. All rights reserved.
 //
 
@@ -17,10 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [UINavigationBar appearance].barTintColor = [UIColor blackColor];
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
-    
-    
     return YES;
 }
 
