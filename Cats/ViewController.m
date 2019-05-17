@@ -176,7 +176,6 @@
         WebViewController *dvc = segue.destinationViewController;
         dvc.urlStr = webButton.url;
         [self.popOver removeFromSuperview];
-        
     }
 }
 
