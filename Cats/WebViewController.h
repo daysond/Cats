@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController : UIViewController
-
+@property (nonatomic) NSString *urlStr;
 @end
 
 NS_ASSUME_NONNULL_END

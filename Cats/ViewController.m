@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "PhotoCollectionViewCell.h"
 #import "Webservice.h"
+#import "WebViewController.h"
 
 @interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -20,11 +21,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (nonatomic) Webservice *webservice;
+@property (nonatomic) NSString* link;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     self.webservice = [Webservice new];
@@ -41,7 +44,7 @@
 
 -(void)fetchPhoto {
     
-    [self.webservice fetchDataWithMethod:@"flickr.photos.search" query:[[NSURLQueryItem alloc] initWithName:@"tags" value:@"dog"] completionHandler:^(NSDictionary * _Nonnull dataDict) {
+    [self.webservice fetchDataWithMethod:@"flickr.photos.search" query:[[NSURLQueryItem alloc] initWithName:@"tags" value:@"cat"] completionHandler:^(NSDictionary * _Nonnull dataDict) {
         
         NSArray* photoData = dataDict[@"photos"][@"photo"];
         
@@ -66,7 +69,8 @@
         self.usernameLabel.text = [NSString stringWithFormat:@"Username: %@",ownerInfo[@"username"]];
         self.realnameLabel.text = [NSString stringWithFormat:@"Real name: %@", ownerInfo[@"realname"]];
         self.locationLabel.text= [NSString stringWithFormat:@"Location: %@",ownerInfo[@"location"]];
-
+        self.link = dataDict[@"photo"][@"urls"][@"url"][0][@"_content"];
+        NSLog(@"link is %@",self.link);
     }];
     
 }
@@ -111,23 +115,29 @@
 -(void)setupPopOver {
     
     self.popOver.alpha = 0.8;
-    [self.view addSubview:self.popOver];
     CGFloat width = CGRectGetWidth(self.view.frame) - 20.0;
     CGFloat height = width * (3.0/4.0);
     [self.popOver setFrame:CGRectMake(0, 0,width,height)];
     self.popOver.center = self.view.center;
+    [self.view addSubview:self.popOver];
     
 }
+
 - (IBAction)dissmissButtonTapped:(UIButton *)sender {
-    
     [self.popOver removeFromSuperview];
 }
-- (IBAction)tapRecog:(UITapGestureRecognizer *)sender {
-    [self performSegueWithIdentifier:@"toWeb" sender:sender];
-    NSIndexPath *indexPath = [self.photoCollectionView indexPathForItemAtPoint:[sender locationInView:self.view]];
-    Photo* photo = self.photos[indexPath.row];
-    //TODO: consturct URL;
-    
+
+- (IBAction)viewPostButtonTapped:(UIButton *)sender {
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"toWeb"]) {
+        WebViewController *dvc = segue.destinationViewController;
+        dvc.urlStr = self.link;
+        [self.popOver removeFromSuperview];
+    }
+
 }
 
 @end
