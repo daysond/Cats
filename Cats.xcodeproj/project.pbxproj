@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED12ED1B228DF4510005A1F0 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */; };
+		ED12ED1E228E20620005A1F0 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = ED12ED1D228E20620005A1F0 /* Webservice.m */; };
 		ED21C0FD228DE729000637F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C0FC228DE729000637F2 /* AppDelegate.m */; };
 		ED21C100228DE729000637F2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C0FF228DE729000637F2 /* ViewController.m */; };
 		ED21C103228DE729000637F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED21C101228DE729000637F2 /* Main.storyboard */; };
@@ -15,11 +16,15 @@
 		ED21C108228DE72A000637F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED21C106228DE72A000637F2 /* LaunchScreen.storyboard */; };
 		ED21C10B228DE72A000637F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C10A228DE72A000637F2 /* main.m */; };
 		ED21C113228DF2F7000637F2 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = ED21C112228DF2F7000637F2 /* Photo.m */; };
+		EDDBF4CE228E464100BEB3C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDBF4CD228E464100BEB3C1 /* WebKit.framework */; };
+		EDDBF4D1228E475400BEB3C1 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDBF4D0228E475400BEB3C1 /* WebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ED12ED19228DF4510005A1F0 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		ED12ED1C228E20620005A1F0 /* Webservice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Webservice.h; sourceTree = "<group>"; };
+		ED12ED1D228E20620005A1F0 /* Webservice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Webservice.m; sourceTree = "<group>"; };
 		ED21C0F8228DE729000637F2 /* Cats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED21C0FB228DE729000637F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ED21C0FC228DE729000637F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -32,6 +37,9 @@
 		ED21C10A228DE72A000637F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ED21C111228DF2F7000637F2 /* Photo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		ED21C112228DF2F7000637F2 /* Photo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		EDDBF4CD228E464100BEB3C1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		EDDBF4CF228E475400BEB3C1 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		EDDBF4D0228E475400BEB3C1 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDDBF4CE228E464100BEB3C1 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +59,7 @@
 			children = (
 				ED21C0FA228DE729000637F2 /* Cats */,
 				ED21C0F9228DE729000637F2 /* Products */,
+				EDDBF4CC228E464100BEB3C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,17 +78,29 @@
 				ED21C0FC228DE729000637F2 /* AppDelegate.m */,
 				ED21C0FE228DE729000637F2 /* ViewController.h */,
 				ED21C0FF228DE729000637F2 /* ViewController.m */,
+				ED12ED1C228E20620005A1F0 /* Webservice.h */,
+				ED12ED1D228E20620005A1F0 /* Webservice.m */,
 				ED12ED19228DF4510005A1F0 /* PhotoCollectionViewCell.h */,
 				ED12ED1A228DF4510005A1F0 /* PhotoCollectionViewCell.m */,
 				ED21C111228DF2F7000637F2 /* Photo.h */,
 				ED21C112228DF2F7000637F2 /* Photo.m */,
 				ED21C101228DE729000637F2 /* Main.storyboard */,
+				EDDBF4CF228E475400BEB3C1 /* WebViewController.h */,
+				EDDBF4D0228E475400BEB3C1 /* WebViewController.m */,
 				ED21C104228DE72A000637F2 /* Assets.xcassets */,
 				ED21C106228DE72A000637F2 /* LaunchScreen.storyboard */,
 				ED21C109228DE72A000637F2 /* Info.plist */,
 				ED21C10A228DE72A000637F2 /* main.m */,
 			);
 			path = Cats;
+			sourceTree = "<group>";
+		};
+		EDDBF4CC228E464100BEB3C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDDBF4CD228E464100BEB3C1 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +173,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED12ED1E228E20620005A1F0 /* Webservice.m in Sources */,
+				EDDBF4D1228E475400BEB3C1 /* WebViewController.m in Sources */,
 				ED21C113228DF2F7000637F2 /* Photo.m in Sources */,
 				ED21C100228DE729000637F2 /* ViewController.m in Sources */,
 				ED21C10B228DE72A000637F2 /* main.m in Sources */,

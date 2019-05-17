@@ -8,12 +8,18 @@
 
 #import "ViewController.h"
 #import "PhotoCollectionViewCell.h"
+#import "Webservice.h"
 
 @interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic) NSMutableArray <Photo*> *photos;
 @property (nonatomic) UICollectionViewFlowLayout *flowLayout;
-
+@property (strong, nonatomic) IBOutlet UIView *popOver;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *realnameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (nonatomic) Webservice *webservice;
 @end
 
 @implementation ViewController
@@ -21,43 +27,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
+    self.webservice = [Webservice new];
     self.photos = [NSMutableArray new];
     [self setupLayout];
-    [self fetchPhotoData];
+    [self fetchPhoto];
+    
+    self.popOver.layer.cornerRadius = 15;
     
 }
 
 
-#pragma mark - Get photo raw data
+#pragma mark - Get data
 
--(void)fetchPhotoData {
+-(void)fetchPhoto {
     
-    NSURL *url = [NSURL URLWithString:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&&nojsoncallback=1&api_key=392a5a896c2f782e5a74afb51275ebb2&tags=cat"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error) {
-            NSLog(@"handling error %@",error);
-            return ;
-        }
-        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) response;
-        
-        if (httpResponse.statusCode != 200) {
-            NSLog(@"Something went wrong with code %ld",httpResponse.statusCode);
-            return;
-        }
-        
-        NSError *jsonError;
-        
-        NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        
-        if (jsonError) {
-            NSLog(@"jsonError: %@",jsonError);
-            return;
-        }
+    [self.webservice fetchDataWithMethod:@"flickr.photos.search" query:[[NSURLQueryItem alloc] initWithName:@"tags" value:@"dog"] completionHandler:^(NSDictionary * _Nonnull dataDict) {
         
         NSArray* photoData = dataDict[@"photos"][@"photo"];
         
@@ -65,14 +49,26 @@
             Photo* photo = [[Photo alloc]initWithFarm:photoDataDict[@"farm"] server:photoDataDict[@"server"]  photoID:photoDataDict[@"id"]  secret:photoDataDict[@"secret"] photoTitle: photoDataDict[@"title"]];
             [self.photos addObject:photo];
         }
+        [self.photoCollectionView reloadData];
+    }];
+}
+
+-(void)fetchPhotoInfoWithID: (NSString*) photoID {
+    
+    NSURLQueryItem *photoIDQuery = [[NSURLQueryItem alloc] initWithName:@"photo_id" value:photoID];
+    
+    [self.webservice fetchDataWithMethod:@"flickr.photos.getInfo" query:photoIDQuery completionHandler:^(NSDictionary * _Nonnull dataDict) {
         
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.photoCollectionView reloadData];
-        }];
+        NSDictionary* dateData = dataDict[@"photo"][@"dates"];
+        NSDictionary* ownerInfo = dataDict[@"photo"][@"owner"];
         
+        self.dateLabel.text = [NSString stringWithFormat:@"Date taken: %@", dateData[@"taken"]];
+        self.usernameLabel.text = [NSString stringWithFormat:@"Username: %@",ownerInfo[@"username"]];
+        self.realnameLabel.text = [NSString stringWithFormat:@"Real name: %@", ownerInfo[@"realname"]];
+        self.locationLabel.text= [NSString stringWithFormat:@"Location: %@",ownerInfo[@"location"]];
+
     }];
     
-    [dataTask resume];
 }
 
 #pragma mark - Set up layout
@@ -101,6 +97,37 @@
     return self.photos.count;
 }
 
+- (IBAction)longPressRecog:(UILongPressGestureRecognizer *)sender {
 
+    NSIndexPath *indexPath = [self.photoCollectionView indexPathForItemAtPoint:[sender locationInView:self.view]];
+    Photo *photo = self.photos[indexPath.item];
+    [self fetchPhotoInfoWithID:photo.photoID];
+    [self setupPopOver];
+}
+
+
+#pragma mark - helpers
+
+-(void)setupPopOver {
+    
+    self.popOver.alpha = 0.8;
+    [self.view addSubview:self.popOver];
+    CGFloat width = CGRectGetWidth(self.view.frame) - 20.0;
+    CGFloat height = width * (3.0/4.0);
+    [self.popOver setFrame:CGRectMake(0, 0,width,height)];
+    self.popOver.center = self.view.center;
+    
+}
+- (IBAction)dissmissButtonTapped:(UIButton *)sender {
+    
+    [self.popOver removeFromSuperview];
+}
+- (IBAction)tapRecog:(UITapGestureRecognizer *)sender {
+    [self performSegueWithIdentifier:@"toWeb" sender:sender];
+    NSIndexPath *indexPath = [self.photoCollectionView indexPathForItemAtPoint:[sender locationInView:self.view]];
+    Photo* photo = self.photos[indexPath.row];
+    //TODO: consturct URL;
+    
+}
 
 @end
